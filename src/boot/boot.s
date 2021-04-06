@@ -20,8 +20,6 @@
 
 // this is our entry point specified in our kernel.lds
 // the bootloader will jump to here when the kernel has been loaded
-.intel_syntax noprefix
-
 .section .text
 .global _start
 .type _start, @function
@@ -32,7 +30,7 @@ _start:
 
     // check if we can enable long mode
     call check_cpuid
-    call check_longmode
+    call check_long_mode
 
     // we are now in 64 bit mode, enter the kernel
     call kernel_main
@@ -57,6 +55,8 @@ check_cpuid:
     je .no_cpuid       // if they match, the cpu did not allow us to flip the bit, cpuid is not available
     ret
 
+// to move in to long mode, we first need to check if the cpu supports it
+// if the cpu doesn't support it, we are going to display an error
 check_long_mode:
     // check if cpuid supports extended processor info
     mov eax, 0x80000000 // move this into the eax register
@@ -66,6 +66,7 @@ check_long_mode:
     cmp eax, 0x80000001 // if eax < 0x80000001
     jb .no_long_mode    // eax > 0x80000001
 
+    // check if cpu supports long mode
     mov eax, 0x80000001 // move this into the eax register
     cpuid               // will store a value into the edx register
     test edx, 1 << 29   // test if ln bit is set
