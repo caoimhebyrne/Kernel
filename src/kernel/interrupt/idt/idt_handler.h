@@ -1,5 +1,6 @@
 #include "types/idt_descriptor.h"
 #include "types/interrupt_frame.h"
+#include "../../display/display.h"
 
 class IDTHandler {
 public:

@@ -7,14 +7,7 @@
 [[noreturn]] __attribute__ ((interrupt))
 void handle_double_fault(struct interrupt_frame *frame) {
     // write "df" for "double fault"
-    *((char *) 0xb8000) = 'D';
-    *((char *) 0xb8002) = 'F';
-
-    // clear other characters from the "READY" string
-    // TODO: clean this up because this is messy
-    *((char *) 0xb8004) = 0;
-    *((char *) 0xb8006) = 0;
-    *((char *) 0xb8008) = 0;
+    Display::draw_string("DF");
 
     // halt forever
     // TODO: create a function for this in another file like instructions.cpp
