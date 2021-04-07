@@ -4,9 +4,10 @@
 class Display {
 public:
     static void drawString(const char *string);
+
 private:
-    static const int vram_start = 0xb8000;
-    static const int vram_end = 0xb8fa0;
+    static const int vramStart = 0xb8000;
+    static const int vramEnd = 0xb8fa0;
 
     static void clearDisplay();
 };
