@@ -14,17 +14,9 @@ extern "C" __attribute__((unused)) void kernel_main() {
     IDTHandler idtHandler;
     IDTDescr *table = idtHandler.initialize();
 
-    struct {
-        uint16_t size;
-        uint64_t addr;
-    } __attribute__((packed)) idtRegister = {
-        sizeof(*table) * 256,
-        (uint64_t) &table[0]
-    };
-
     // load the idt that we have defined
-    asm volatile("lidt %0"::"m" (idtRegister));
+    lidt((uint64_t) &table[0], sizeof(*table) * 256);
 
     // trigger a page fault, it should be caught
-    // *((char *) 0xffffffffffff) = 'A';
+    *((char *) 0xffffffffffff) = 'A';
 }

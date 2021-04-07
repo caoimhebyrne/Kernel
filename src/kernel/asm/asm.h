@@ -30,4 +30,18 @@
     asm volatile("hlt");
 }
 
+/**
+ * defines a new interrupt table (idt)
+ * @param base the pointer of the first idt entry in your array
+ * @param size the size of your idt table
+ */
+[[maybe_unused]] static inline void lidt(uint64_t address, uint16_t size) {
+    struct {
+        uint16_t size;
+        uint64_t addr;
+    } __attribute__((packed)) idtRegister = {size, address};
+
+    asm volatile ("lidt %0" : : "m"(idtRegister));
+}
+
 #endif //KERNEL_ASM_H
