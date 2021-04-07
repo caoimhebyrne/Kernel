@@ -6,11 +6,7 @@
  */
 extern "C" __attribute__((unused)) void kernel_main() {
     // print ready to the screen
-    *((char *) 0xb8000) = 'R';
-    *((char *) 0xb8002) = 'E';
-    *((char *) 0xb8004) = 'A';
-    *((char *) 0xb8006) = 'D';
-    *((char *) 0xb8008) = 'Y';
+    Display::draw_string("READY");
 
     // setup the interrupt descriptor table
     IDTHandler idtHandler;
@@ -28,5 +24,5 @@ extern "C" __attribute__((unused)) void kernel_main() {
     asm volatile("lidt %0"::"m" (idtRegister));
 
     // trigger a page fault, it should be caught
-    *((char *) 0xffffffffffff) = 'A';
+    // *((char *) 0xffffffffffff) = 'A';
 }
