@@ -1,5 +1,7 @@
 #include "interrupt/IDTManager.h"
 #include "io/IO.h"
+#include "scheduler/Timer.h"
+#include "interrupt/pic/PIC.h"
 
 __attribute__((interrupt))
 void handleGeneralProtectionFault(InterruptFrame *frame, size_t code);
@@ -26,15 +28,21 @@ extern "C" __attribute__((unused)) void kernel_main() {
         constructor++;
     }
 
-    // print ready to the screen
-    Display::drawString("READY");
-    IO::printf("hello world\n");
-
     // setup the interrupt descriptor table
     setupIDT();
 
-    // trigger a general protection fault, it should be caught
-    *((char *) 0xffffffffffff) = 'A';
+    PIC::initialize();
+    PIC::PIC1_mask(0b11111110);
+    PIC::PIC2_mask(0b11111111);
+
+    Timer::initialize(100);
+    sti();
+
+    Display::drawString("Waiting 3 seconds...");
+    while (Timer::ticks % 300 != 0);
+    Display::drawString("Ready!");
+
+    halt();
 }
 
 /**
@@ -45,6 +53,7 @@ void setupIDT() {
     IDTManager idtManager;
     idtManager.registerExceptionHandler(0x8, handleDoubleFault);
     idtManager.registerExceptionHandler(0xd, handleGeneralProtectionFault);
+    idtManager.registerExceptionHandler(PIC1 + 0, Timer::handle);
 
     // load the interrupt descriptor table
     IDTDescriptor *table = idtManager.getTable();
