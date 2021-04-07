@@ -1,16 +1,18 @@
 #include "idt_handler.h"
+#include "../../io/io.h"
 
 /**
  * called by the cpu when a double fault is thrown
  * a double fault is thrown when an exception is unhandled or occurs when the CPU is trying to call a handler
  */
 [[noreturn]] __attribute__ ((interrupt))
-void handle_double_fault(struct interrupt_frame *frame) {
+void handle_double_fault(struct interrupt_frame *frame, size_t errorCode) {
     // write "df" for "double fault"
     Display::draw_string("DF");
 
-    // halt forever
-    // TODO: create a function for this in another file like instructions.cpp
+    // print some info
+    IO::print_string("a double fault has been thrown!\ncode: %u, ip:0x%u, sp:0x%u\nhalting!\n", errorCode, frame->instruction_pointer, frame->stack_pointer);
+
     while (true) _halt();
 }
 
