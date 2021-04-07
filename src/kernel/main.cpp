@@ -1,8 +1,8 @@
-// this is the entry point called from our assembly
-// here is where the swagness will happen :monkeypog:
+/*
+ * This is the entrypoint of our kernel
+ * It is called from boot/main.s when we have switched into 64 bit mode
+ */
 extern "C" __attribute__((unused)) void kernel_main() {
-    // 0xb8000 is the framebuffer
-    // HOLY SHIT ITS A MONKEY ON THE SCREEN WHAT THE FUCK???
     *((char *) 0xb8000) = 'M';
     *((char *) 0xb8002) = 'O';
     *((char *) 0xb8004) = 'N';
