@@ -4,12 +4,16 @@
 #include "../asm/asm.h"
 #include "util/integer_utils.h"
 
-void IO::printc(char c) {
+void IO::pwrite(uint16_t port, uint8_t value) {
     // wait until the output buffer is flushed
-    while (!(inb(COM1 + 5) & 0b100000));
+    while (!(inb(port + 5) & 0b100000));
 
     // write our character to the buffer
-    outb(COM1, c);
+    outb(port, value);
+}
+
+void IO::printc(char c) {
+    pwrite(COM1, c);
 }
 
 void IO::printf(const char *string, ...) {
