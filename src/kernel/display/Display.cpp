@@ -1,8 +1,8 @@
-#include "display.h"
+#include "Display.h"
 
-void Display::draw_string(const char *string) {
+void Display::drawString(const char *string) {
     // before we draw a new string, we need to clear the previous one
-    clear_display();
+    clearDisplay();
 
     // while i is smaller than or equal tos the size of the string
     for (int i = 0; string[i] != '\0'; i++) {
@@ -11,7 +11,7 @@ void Display::draw_string(const char *string) {
     }
 }
 
-void Display::clear_display() {
+void Display::clearDisplay() {
     // loop between the range of vram_start and vram_end
     for (int i = 0; i + vram_start <= vram_end; i++)
         // clear the text bit of this memory address

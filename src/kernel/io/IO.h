@@ -4,8 +4,9 @@
 
 class IO {
 public:
-    static void print_string(const char *string, ...);
-    static void print_char(char c);
+    static void printf(const char *string, ...);
+
+    static void printc(char c);
 };
 
 #endif //KERNEL_IO_H

@@ -1,10 +1,10 @@
 #include <stdarg.h> // NOLINT(modernize-deprecated-headers)
 
-#include "io.h"
-#include "../asm/asm.h"
+#include "IO.h"
+#include "../asm/ASM.h"
 #include "util/integer_utils.h"
 
-void IO::print_char(char c) {
+void IO::printc(char c) {
     // wait until the output buffer is flushed
     while (!(inb(COM1 + 5) & 0b100000));
 
@@ -12,7 +12,7 @@ void IO::print_char(char c) {
     outb(COM1, c);
 }
 
-void IO::print_string(const char *string, ...) {
+void IO::printf(const char *string, ...) {
     va_list args;
     va_start(args, string);
 
@@ -31,43 +31,43 @@ void IO::print_string(const char *string, ...) {
                 case 's': {
                     // string
                     const char *arg = va_arg(args, const char *);
-                    print_string(arg);
+                    printf(arg);
                     break;
                 }
                 case 'c': {
                     // unsigned char
                     uint8_t arg = va_arg(args, uint32_t) & 0xffff;
-                    print_string(toString(arg));
+                    printf(toString(arg));
                     break;
                 }
                 case 'u': {
                     // unsigned short
                     uint16_t arg = va_arg(args, uint32_t) & 0xffff;
-                    print_string(toString(arg));
+                    printf(toString(arg));
                     break;
                 }
                 case 'i': {
                     // unsigned int
                     uint32_t arg = va_arg(args, uint32_t);
-                    print_string(toString(arg));
+                    printf(toString(arg));
                     break;
                 }
                 case 'l': {
                     // unsigned long
                     uint64_t arg = va_arg(args, uint64_t);
-                    print_string(toString(arg));
+                    printf(toString(arg));
                     break;
                 }
                 default: {
                     // print out the original sequence of characters
-                    print_char(c);
-                    print_char(nextC);
+                    printc(c);
+                    printc(nextC);
                     break;
                 }
             }
         } else {
             // print the character to COM1
-            print_char(c);
+            printc(c);
         }
     }
 

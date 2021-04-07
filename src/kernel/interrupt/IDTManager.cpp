@@ -1,4 +1,4 @@
-#include "idt_handler.h"
+#include "IDTManager.h"
 
 /**
  * initializes the idt, this allows us to handle software and hardware interrupts
@@ -6,7 +6,7 @@
  *
  * at the moment, we only catch double fault (0x8)
  */
-IDTDescr IDTHandler::idt[256];
+IDTDescriptor IDTManager::table[256];
 
 /**
  * allows you to register a method that the cpu will call when your specified exception is thrown
@@ -15,9 +15,9 @@ IDTDescr IDTHandler::idt[256];
  * @param selector the selector of the exception
  * @param func a pointer to your function which will be invoked by the cpu
  */
-void IDTHandler::register_exception_handler(uint16_t selector, void (*func)(interrupt_frame *, size_t)) {
-    IDTDescr *descriptor = &idt[selector];
-    this->initialize_descriptor((uint64_t) func, (1 << 7) | (0 << 5) | 0xF, descriptor);
+void IDTManager::registerExceptionHandler(uint16_t selector, void (*func)(InterruptFrame *, size_t)) {
+    IDTDescriptor *descriptor = &table[selector];
+    this->initializeDescriptor((uint64_t) func, (1 << 7) | (0 << 5) | 0xF, descriptor);
 }
 
 /**
@@ -39,7 +39,7 @@ void IDTHandler::register_exception_handler(uint16_t selector, void (*func)(inte
  * @param type_attr see above
  * @param desc the descriptor to write to
  */
-void IDTHandler::initialize_descriptor(uint64_t offset, uint16_t type_attr, struct IDTDescr *desc) {
+void IDTManager::initializeDescriptor(uint64_t offset, uint16_t type_attr, struct IDTDescriptor *desc) {
     desc->offset_1 = (offset & 0xffff);
     desc->selector = 0x8;
     desc->ist = 0 & 0b11;
@@ -49,6 +49,6 @@ void IDTHandler::initialize_descriptor(uint64_t offset, uint16_t type_attr, stru
     desc->zero = 0;
 }
 
-IDTDescr *IDTHandler::get_idt() {
-    return idt;
+IDTDescriptor *IDTManager::getTable() {
+    return table;
 }
