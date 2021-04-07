@@ -11,7 +11,7 @@ void handle_double_fault(struct interrupt_frame *frame) {
 
     // halt forever
     // TODO: create a function for this in another file like instructions.cpp
-    while (true) asm volatile("hlt");
+    while (true) _halt();
 }
 
 /**

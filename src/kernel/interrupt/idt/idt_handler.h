@@ -1,6 +1,7 @@
 #include "types/idt_descriptor.h"
 #include "types/interrupt_frame.h"
 #include "../../display/display.h"
+#include "../../asm/asm.h"
 
 #ifndef KERNEL_IDT_HANDLER_H
 #define KERNEL_IDT_HANDLER_H
