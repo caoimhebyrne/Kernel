@@ -1,12 +1,14 @@
 #ifndef KERNEL_INTERRUPT_FRAME_H
 #define KERNEL_INTERRUPT_FRAME_H
 
+#include <stddef.h>
+
 struct interrupt_frame {
-    uint16_t instruction_pointer;
-    uint16_t code_segment;
-    uint16_t flags;
-    uint16_t stack_pointer;
-    uint16_t stack_segment;
+    size_t instruction_pointer;
+    size_t code_segment;
+    size_t flags;
+    size_t stack_pointer;
+    size_t stack_segment;
 };
 
 #endif //KERNEL_INTERRUPT_FRAME_H
