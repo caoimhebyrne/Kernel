@@ -1,7 +1,9 @@
+#!/bin/bash
+set -e
 echo monkey...
 
 # i should change this
-cd /mnt/c/Users/conor/Development/kernel || exit
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 # remove any existing artifiacts
 rm -rf isodir
