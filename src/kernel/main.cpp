@@ -43,7 +43,7 @@ void handleGeneralProtectionFault(InterruptFrame *frame, size_t code) {
     Display::drawString("#GP");
 
     IO::printf("a general protection fault has been thrown!\ncode: %l, ip:0x%l, sp:0x%l\nhalting!\n",
-               code, frame->instruction_pointer, frame->stack_pointer);
+               code, frame->instructionPointer, frame->stackPointer);
 
     halt();
 }
@@ -52,7 +52,7 @@ void handleDoubleFault(InterruptFrame *frame, size_t code) {
     Display::drawString("#DF");
 
     IO::printf("a double fault has been thrown!\ncode: %l, ip:0x%l, sp:0x%l\nhalting!\n", code,
-               frame->instruction_pointer, frame->stack_pointer);
+               frame->instructionPointer, frame->stackPointer);
 
     halt();
 }

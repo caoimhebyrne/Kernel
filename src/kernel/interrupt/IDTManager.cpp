@@ -40,12 +40,12 @@ void IDTManager::registerExceptionHandler(uint16_t selector, void (*func)(Interr
  * @param desc the descriptor to write to
  */
 void IDTManager::initializeDescriptor(uint64_t offset, uint16_t type_attr, struct IDTDescriptor *desc) {
-    desc->offset_1 = (offset & 0xffff);
+    desc->offset1 = (offset & 0xffff);
     desc->selector = 0x8;
     desc->ist = 0 & 0b11;
-    desc->type_attr = type_attr;
-    desc->offset_2 = (offset >> 16) & 0xffff;
-    desc->offset_3 = (offset >> 32) & 0xffffffff;
+    desc->typeAttr = type_attr;
+    desc->offset2 = (offset >> 16) & 0xffff;
+    desc->offset3 = (offset >> 32) & 0xffffffff;
     desc->zero = 0;
 }
 
