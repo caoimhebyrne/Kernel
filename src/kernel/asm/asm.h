@@ -26,8 +26,8 @@
 /**
  * tells the cpu to not run any more instructions
  */
-[[maybe_unused]] static inline void _halt() {
-    asm volatile("hlt");
+[[maybe_unused]] static inline void halt() {
+    while (true) asm volatile("hlt");
 }
 
 /**
