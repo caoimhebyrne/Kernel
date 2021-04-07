@@ -1,5 +1,7 @@
 .code64
 
+.extern halt
+
 .global _main64
 .section .text
 .type _main64, @function
@@ -16,8 +18,3 @@ _main64:
     // execute our c++ code
     call kernel_main
     call halt
-
-halt:
-1:  hlt
-    jmp 1b
-.size halt, . - halt
