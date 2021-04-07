@@ -1,4 +1,5 @@
 #include "interrupt/idt/idt_handler.h"
+#include "io/io.h"
 
 /*
  * This is the entrypoint of our kernel
@@ -7,6 +8,7 @@
 extern "C" __attribute__((unused)) void kernel_main() {
     // print ready to the screen
     Display::draw_string("READY");
+    IO::print_string("hello world\n");
 
     // setup the interrupt descriptor table
     IDTHandler idtHandler;
