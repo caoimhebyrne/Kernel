@@ -1,7 +1,7 @@
 #include <stdarg.h> // NOLINT(modernize-deprecated-headers)
 
 #include "IO.h"
-#include "../asm/ASM.h"
+#include "../asm/asm.h"
 #include "util/integer_utils.h"
 
 void IO::printc(char c) {
