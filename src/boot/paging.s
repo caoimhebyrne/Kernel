@@ -1,4 +1,16 @@
 .code32
+// these are our page tables
+// the page table defines the mappings from a virtual address to a physical address
+// every time there's a memory access, the cpu checks the tables and finds out where the real destination should be
+.section .bss
+.align 4096
+page_table_l4:
+    .skip 4096
+page_table_l3:
+    .skip 4096
+page_table_l2:
+    .skip 4096
+
 .section .text
 
 .global setup_paging
