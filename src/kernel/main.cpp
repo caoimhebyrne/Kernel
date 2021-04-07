@@ -1,4 +1,4 @@
-#include "interrupt/idt/idt_handler.h"
+#include "interrupt/idt_handler.h"
 #include "io/io.h"
 
 __attribute__((interrupt))
@@ -22,7 +22,7 @@ extern "C" __attribute__((unused)) void kernel_main() {
     setup_idt();
 
     // trigger a general protection fault, it should be caught
-    // *((char *) 0xffffffffffff) = 'A';
+    *((char *) 0xffffffffffff) = 'A';
 }
 
 /**

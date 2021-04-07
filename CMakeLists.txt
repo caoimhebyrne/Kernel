@@ -4,7 +4,7 @@ project(kernel NONE)
 enable_language(C CXX ASM)
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(kernel src/kernel/interrupt/idt/idt_handler.cpp src/kernel/main.cpp src/boot/cpuid.s src/boot/paging.s src/boot/boot.s src/boot/main.s src/kernel/display/display.cpp src/kernel/display/display.h src/kernel/io/io.cpp src/kernel/io/io.h src/kernel/asm/asm.h)
+add_executable(kernel src/kernel/interrupt/idt_handler.cpp src/kernel/main.cpp src/boot/cpuid.s src/boot/paging.s src/boot/boot.s src/boot/main.s src/kernel/display/display.cpp src/kernel/display/display.h src/kernel/io/io.cpp src/kernel/io/io.h src/kernel/asm/asm.h)
 
 target_compile_options(kernel PRIVATE -g -nostdlibinc -nostdlib -ffreestanding -target x86_64-unknown-gnu -mno-red-zone -Wall -Wextra -msoft-float -mno-mmx -mno-sse -mcmodel=large -fno-pie -masm=intel)
 target_link_options(kernel PRIVATE -g -T "${CMAKE_CURRENT_SOURCE_DIR}/tools/kernel.lds" -nostdlib -target x86_64-unknown-gnu -fuse-ld=lld -Wl,--no-pie -Wl,--no-dynamic-linker)
