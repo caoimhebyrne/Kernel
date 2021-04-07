@@ -15,7 +15,7 @@ public:
      * @param selector the selector of the exception
      * @param func a pointer to your function which will be invoked by the cpu
      */
-    void register_exception_handler(uint16_t selector, void (*func)(InterruptFrame *)) {
+    void registerExceptionHandler(uint16_t selector, void (*func)(InterruptFrame *)) {
         registerExceptionHandler(selector, (void (*)(InterruptFrame *, size_t)) func);
     }
 
