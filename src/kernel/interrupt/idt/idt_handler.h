@@ -2,6 +2,9 @@
 #include "types/interrupt_frame.h"
 #include "../../display/display.h"
 
+#ifndef KERNEL_IDT_HANDLER_H
+#define KERNEL_IDT_HANDLER_H
+
 class IDTHandler {
 public:
     IDTDescr *initialize();
@@ -11,3 +14,5 @@ public:
 private:
     static IDTDescr idt[256];
 };
+
+#endif //KERNEL_IDT_HANDLER_H

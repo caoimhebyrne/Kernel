@@ -1,7 +1,3 @@
-//
-// Created by conor on 07/04/2021.
-//
-
 #include "display.h"
 
 void Display::draw_string(const char *string) {

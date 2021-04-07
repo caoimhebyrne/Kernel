@@ -1,7 +1,3 @@
-//
-// Created by conor on 07/04/2021.
-//
-
 #ifndef KERNEL_DISPLAY_H
 #define KERNEL_DISPLAY_H
 

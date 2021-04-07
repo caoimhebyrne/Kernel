@@ -1,5 +1,8 @@
 #include <stdint.h> // NOLINT(modernize-deprecated-headers)
 
+#ifndef KERNEL_IDT_DESCRIPTOR_H
+#define KERNEL_IDT_DESCRIPTOR_H
+
 struct IDTDescr {
     uint16_t offset_1; // offset bits 0..15
     uint16_t selector; // a code segment selector in GDT or LDT
@@ -9,3 +12,5 @@ struct IDTDescr {
     uint32_t offset_3; // offset bits 32..63
     uint32_t zero;     // reserved
 };
+
+#endif //KERNEL_IDT_DESCRIPTOR_H
