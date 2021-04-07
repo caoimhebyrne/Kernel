@@ -9,11 +9,23 @@ void handleDoubleFault(InterruptFrame *frame, size_t code);
 
 void setupIDT();
 
+// a list of global constructors
+extern "C" {
+extern void (*__CTOR_LIST__)();
+}
+
 /*
  * This is the entrypoint of our kernel
  * It is called from boot/main.s when we have switched into 64 bit mode
  */
 extern "C" __attribute__((unused)) void kernel_main() {
+    // loop through all global constructors and invoke them
+    void (**constructor)() = &__CTOR_LIST__;
+    while (*constructor) {
+        (*constructor)();
+        constructor++;
+    }
+
     // print ready to the screen
     Display::drawString("READY");
     IO::printf("hello world\n");
