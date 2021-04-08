@@ -1,5 +1,5 @@
-#ifndef KERNEL_PIC_H
-#define KERNEL_PIC_H
+#ifndef KERNEL_PICMANAGER_H
+#define KERNEL_PICMANAGER_H
 
 #define PIC1 0x20
 #define PIC2 PIC1 + 8
@@ -12,7 +12,7 @@
 #define ICW1_INIT 0x10
 #define ICW4_8086 0x01
 
-class PIC {
+class PICManager {
 public:
     static void initialize();
 
@@ -24,4 +24,4 @@ public:
 };
 
 
-#endif //KERNEL_PIC_H
+#endif //KERNEL_PICMANAGER_H

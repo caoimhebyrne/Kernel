@@ -1,8 +1,8 @@
-#include "PIC.h"
+#include "PICManager.h"
 #include "../../asm/asm.h"
 #include "../../io/IO.h"
 
-void PIC::initialize() {
+void PICManager::initialize() {
     // save masks before modification
     uint8_t pic1_data = inb(PIC1_DATA);
     uint8_t pic2_data = inb(PIC2_DATA);
@@ -30,14 +30,14 @@ void PIC::initialize() {
     IO::pwrite(PIC2_DATA, pic2_data);
 }
 
-void PIC::PIC1_mask(int mask) {
+void PICManager::PIC1_mask(int mask) {
     IO::pwrite(PIC1_DATA, mask);
 }
 
-void PIC::PIC2_mask(int mask) {
+void PICManager::PIC2_mask(int mask) {
     IO::pwrite(PIC2_DATA, mask);
 }
 
-void PIC::sendEOI() {
+void PICManager::sendEOI() {
     IO::pwrite(PIC1_COMMAND, 0x20);
 }

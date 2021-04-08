@@ -1,7 +1,7 @@
 #include "IDTHandler.h"
 #include "../manager/IDTManager.h"
 #include "../../../scheduler/Timer.h"
-#include "../../pic/PIC.h"
+#include "../../pic/PICManager.h"
 #include "../../../io/IO.h"
 
 void handleGeneralProtectionFault(InterruptFrame *frame, size_t code) {

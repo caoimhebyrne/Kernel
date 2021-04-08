@@ -1,7 +1,7 @@
 #include "interrupt/idt/manager/IDTManager.h"
 #include "io/IO.h"
 #include "scheduler/Timer.h"
-#include "interrupt/pic/PIC.h"
+#include "interrupt/pic/PICManager.h"
 #include "../include/multiboot2.h"
 #include "interrupt/idt/handler/IDTHandler.h"
 
@@ -51,9 +51,9 @@ extern "C" __attribute__((unused)) void kernel_main() {
     // setup the interrupt descriptor table
     IDTHandler::initialize();
 
-    PIC::initialize();
-    PIC::PIC1_mask(0b11111110);
-    PIC::PIC2_mask(0b11111111);
+    PICManager::initialize();
+    PICManager::PIC1_mask(0b11111110);
+    PICManager::PIC2_mask(0b11111111);
 
     Timer::initialize(100);
     sti();
