@@ -6,6 +6,7 @@ SECTIONS {
 
     .headers ALIGN(4K) : ALIGN(16) { KEEP(*(.headers)) }
     .text ALIGN(4K) : { *(.text .text.*) }
+    .data ALIGN(4K) : { *(.data .data.*) }
     .rodata ALIGN(4K) : {
         __CTOR_LIST__ = .;
         *(.ctors .init_array)

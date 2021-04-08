@@ -25,6 +25,8 @@
 
 .global _start
 .global halt
+.global multiboot_ptr
+.global multiboot_magic
 
 // these are our subroutines declared in other files
 .extern _main64
@@ -36,6 +38,9 @@
 _start:
     // here, we will setup our stack by moving the esp register to the top of the stack
     lea esp, [.stack_top]
+
+    mov [multiboot_ptr], ebx
+    mov [multiboot_magic], eax
 
     // check if we can enable long mode
     call check_cpuid
@@ -75,6 +80,13 @@ stack_bottom:
     .skip 16384 // this is the 16 kilobytes allocated to our stack
 .stack_top:
     .size stack_bottom, . - stack_bottom
+
+.section .data
+.align 8
+multiboot_ptr:
+    .long 0
+multiboot_magic:
+    .long 0
 
 .section .rodata
 .align 8
