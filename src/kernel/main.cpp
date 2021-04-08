@@ -11,8 +11,6 @@ void handleGeneralProtectionFault(InterruptFrame *frame, size_t code);
 __attribute__((interrupt))
 void handleDoubleFault(InterruptFrame *frame, size_t code);
 
-void setupIDT();
-
 // information provided to us by multiboot2
 extern "C" uint32_t multiboot_ptr;
 extern "C" uint32_t multiboot_magic;
