@@ -2,6 +2,7 @@
 #include "io/IO.h"
 #include "scheduler/Timer.h"
 #include "interrupt/pic/PIC.h"
+#include "../include/multiboot2.h"
 
 __attribute__((interrupt))
 void handleGeneralProtectionFault(InterruptFrame *frame, size_t code);
@@ -10,6 +11,10 @@ __attribute__((interrupt))
 void handleDoubleFault(InterruptFrame *frame, size_t code);
 
 void setupIDT();
+
+// information provided to us by multiboot2
+extern "C" uint32_t multiboot_ptr;
+extern "C" uint32_t multiboot_magic;
 
 // a list of global constructors
 extern "C" {
@@ -21,6 +26,20 @@ extern void (*__CTOR_LIST__)();
  * It is called from boot/main.s when we have switched into 64 bit mode
  */
 extern "C" __attribute__((unused)) void kernel_main() {
+    IO::printf("Welcome to monke kernel iso 15 (real)...\n");
+
+    if (multiboot_magic != MULTIBOOT2_BOOTLOADER_MAGIC) {
+        Display::drawString("INVALID MULTIBOOT2 MAGIC!");
+        IO::printf("Invalid Multiboot2 magic! Expected: 0x%l, received: 0x%l...\nhalting!\n",
+                   MULTIBOOT2_BOOTLOADER_MAGIC, multiboot_magic);
+        halt();
+        return;
+    }
+
+    IO::printf(
+            "========== Multiboot info dump ==========\n- Received magic: 0x%l\n- Received pointer: 0x%l\n=========================================\n",
+            multiboot_magic, multiboot_ptr);
+
     // loop through all global constructors and invoke them
     void (**constructor)() = &__CTOR_LIST__;
     while (*constructor) {
