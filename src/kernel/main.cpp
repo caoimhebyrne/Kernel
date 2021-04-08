@@ -39,7 +39,7 @@ extern "C" __attribute__((unused)) void kernel_main() {
     sti();
 
     Display::drawString("Waiting 3 seconds...");
-    while (Timer::ticks % 300 != 0);
+    Timer::sleep(3000);
     Display::drawString("Ready!");
 
     halt();

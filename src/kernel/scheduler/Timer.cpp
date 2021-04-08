@@ -19,3 +19,12 @@ void Timer::handle(InterruptFrame *frame) {
     ticks++;
     PIC::sendEOI();
 }
+
+/**
+ * halts the cpu for a certain amount of milliseconds
+ * this function assumes that the timer is running at 100hz
+ * @param ms the amount of milliseconds to sleep for
+ */
+void Timer::sleep(int ms) {
+    while (ticks % (ms / 10) != 0);
+}

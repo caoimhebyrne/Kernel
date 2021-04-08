@@ -7,10 +7,13 @@
 #include "../interrupt/types/InterruptFrame.h"
 
 class Timer {
-public:
+private:
     static int ticks;
 
+public:
     static void initialize(int freq);
+
+    static void sleep(int ms);
 
     __attribute__((interrupt))
     static void handle(InterruptFrame *frame);
