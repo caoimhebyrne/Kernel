@@ -1,7 +1,7 @@
-#include "types/IDTDescriptor.h"
-#include "types/InterruptFrame.h"
-#include "../display/Display.h"
-#include "../asm/asm.h"
+#include "../../../display/Display.h"
+#include "../../../asm/asm.h"
+#include "../types/InterruptFrame.h"
+#include "../types/IDTDescriptor.h"
 
 #ifndef KERNEL_IDT_MANAGER_H
 #define KERNEL_IDT_MANAGER_H

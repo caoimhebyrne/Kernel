@@ -1,10 +1,11 @@
 #ifndef KERNEL_TIMER_H
 #define KERNEL_TIMER_H
 
+#include "../interrupt/idt/types/InterruptFrame.h"
+
 #define CMD_REG_PORT 0x43
 #define DATA_REG_1 0x40
 
-#include "../interrupt/types/InterruptFrame.h"
 
 class Timer {
 private:
