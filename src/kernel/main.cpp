@@ -5,19 +5,13 @@
 #include "../include/multiboot2.h"
 #include "interrupt/idt/handler/IDTHandler.h"
 
-__attribute__((interrupt))
-void handleGeneralProtectionFault(InterruptFrame *frame, size_t code);
-
-__attribute__((interrupt))
-void handleDoubleFault(InterruptFrame *frame, size_t code);
-
 // information provided to us by multiboot2
 extern "C" uint32_t multiboot_ptr;
 extern "C" uint32_t multiboot_magic;
 
 // a list of global constructors
 extern "C" {
-extern void (*__CTOR_LIST__)();
+extern void (*__CTOR_LIST__)(); // NOLINT(bugprone-reserved-identifier)
 }
 
 /*
