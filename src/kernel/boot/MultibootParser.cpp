@@ -1,7 +1,3 @@
-//
-// Created by cbyrne on 09/04/2021.
-//
-
 #include "MultibootParser.h"
 #include "../../include/multiboot2.h"
 

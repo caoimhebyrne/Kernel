@@ -1,7 +1,3 @@
-//
-// Created by cbyrne on 09/04/2021.
-//
-
 #ifndef KERNEL_MULTIBOOTPARSER_H
 #define KERNEL_MULTIBOOTPARSER_H
 
