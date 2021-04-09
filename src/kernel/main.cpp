@@ -4,7 +4,6 @@
 #include "interrupt/pic/PICManager.h"
 #include "interrupt/idt/handler/IDTHandler.h"
 #include "multiboot/MultibootParser.h"
-#include "scheduler/task/Task.h"
 
 // information provided to us by multiboot2
 extern "C" uint32_t multiboot_ptr;
@@ -13,10 +12,6 @@ extern "C" uint32_t multiboot_magic;
 // a list of global constructors
 extern "C" {
 extern void (*__CTOR_LIST__)(); // NOLINT(bugprone-reserved-identifier)
-}
-
-static void test() {
-    IO::printf("We are at test!\n");
 }
 
 /*
