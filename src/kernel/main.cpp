@@ -3,7 +3,7 @@
 #include "scheduler/Timer.h"
 #include "interrupt/pic/PICManager.h"
 #include "interrupt/idt/handler/IDTHandler.h"
-#include "boot/MultibootParser.h"
+#include "multiboot/MultibootParser.h"
 
 // information provided to us by multiboot2
 extern "C" uint32_t multiboot_ptr;
