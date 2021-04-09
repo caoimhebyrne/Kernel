@@ -4,6 +4,7 @@
 #include "interrupt/pic/PICManager.h"
 #include "interrupt/idt/handler/IDTHandler.h"
 #include "multiboot/MultibootParser.h"
+#include "scheduler/task/Task.h"
 
 // information provided to us by multiboot2
 extern "C" uint32_t multiboot_ptr;
@@ -12,6 +13,14 @@ extern "C" uint32_t multiboot_magic;
 // a list of global constructors
 extern "C" {
 extern void (*__CTOR_LIST__)(); // NOLINT(bugprone-reserved-identifier)
+}
+
+static Task currentTask;
+static Task newTask;
+
+static void test() {
+    IO::printf("[TestTask] test\n");
+    switchTask(&currentTask, &newTask);
 }
 
 /*
@@ -57,6 +66,27 @@ extern "C" __attribute__((unused)) void kernel_main() {
     PICManager::PIC2_mask(0b11111111);
 
     Timer::initialize(100);
+
+    switchTask(&currentTask, &currentTask);
+
+    size_t newTaskStack[16];
+    newTaskStack[15] = (size_t) &test;
+
+    newTask.rsp = (size_t) &newTaskStack[15];
+    newTask.rflags = 6;
+    newTask.cr0 = currentTask.cr0;
+    newTask.cr2 = currentTask.cr2;
+    newTask.cr3 = currentTask.cr3;
+    newTask.cr4 = currentTask.cr4;
+    newTask.cr8 = currentTask.cr8;
+    newTask.ds = 0;
+    newTask.ss = 0;
+    newTask.fs = 0;
+    newTask.gs = 0;
+
+    IO::printf("Running test task\n");
+    switchTask(&newTask, &currentTask);
+    IO::printf("Finished test task\n");
 
     Display::drawString("Waiting 3 seconds...");
     Timer::sleep(3000);
