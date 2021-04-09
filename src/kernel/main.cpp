@@ -50,13 +50,13 @@ extern "C" __attribute__((unused)) void kernel_main() {
 
     // setup the interrupt descriptor table
     IDTHandler::initialize();
+    sti();
 
     PICManager::initialize();
     PICManager::PIC1_mask(0b11111110);
     PICManager::PIC2_mask(0b11111111);
 
     Timer::initialize(100);
-    sti();
 
     Display::drawString("Waiting 3 seconds...");
     Timer::sleep(3000);
