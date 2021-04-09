@@ -1,6 +1,6 @@
 #include "IDTHandler.h"
 #include "../manager/IDTManager.h"
-#include "../../../scheduler/Timer.h"
+#include "../../../scheduler/timer/Timer.h"
 #include "../../pic/PICManager.h"
 #include "../../../io/IO.h"
 

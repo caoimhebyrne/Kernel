@@ -1,6 +1,6 @@
 #include "Timer.h"
-#include "../io/IO.h"
-#include "../interrupt/pic/PICManager.h"
+#include "../../io/IO.h"
+#include "../../interrupt/pic/PICManager.h"
 
 int Timer::ticks;
 
