@@ -4,7 +4,7 @@
 #include "../asm/asm.h"
 #include "util/integer_utils.h"
 
-void IO::pwrite(uint16_t port, uint8_t value) {
+void IO::comwrite(uint16_t port, uint8_t value) {
     // wait until the output buffer is flushed
     while (!(inb(port + 5) & 0b100000));
 
@@ -12,8 +12,13 @@ void IO::pwrite(uint16_t port, uint8_t value) {
     outb(port, value);
 }
 
+void IO::pwrite(uint16_t port, uint8_t value) {
+    pwait();
+    outb(port, value);
+}
+
 void IO::printc(char c) {
-    pwrite(COM1, c);
+    comwrite(COM1, c);
 }
 
 void IO::printf(const char *string, ...) {

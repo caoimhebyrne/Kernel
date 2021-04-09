@@ -11,6 +11,8 @@ public:
 
     static void printc(char c);
 
+    static void comwrite(uint16_t port, uint8_t value);
+
     static void pwrite(uint16_t port, uint8_t value);
 };
 

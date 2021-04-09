@@ -13,6 +13,14 @@
 }
 
 /**
+ * waits until the output buffer is flushed
+ * this is used for io locations that are not communication ports
+ */
+[[maybe_unused]] static inline void pwait() {
+    asm volatile("outb %%al, $0x80"::"a" (0));
+}
+
+/**
  * retrieves a value from an io location
  * @param port the port to retrieve the value from
  * @return the value
