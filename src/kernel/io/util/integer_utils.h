@@ -12,7 +12,7 @@ static const char *toString(T value) {
     bool negative = value < 0;
     if (negative) value = -value;
 
-    while (value >= 0x16) {
+    while (value >= 16) {
         buf[--idx] = "0123456789ABCDEF"[value & 0xF];
         value >>= 4;
     }
