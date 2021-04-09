@@ -38,6 +38,13 @@
 }
 
 /**
+ * clears the interrupt flag
+ */
+[[maybe_unused]] static inline void cli() {
+    asm volatile("cli");
+}
+
+/**
  * defines a new interrupt table (idt)
  * @param base the pointer of the first idt entry in your array
  * @param size the size of your idt table

@@ -3,6 +3,7 @@
 #include "../../../scheduler/timer/Timer.h"
 #include "../../pic/PICManager.h"
 #include "../../../io/IO.h"
+#include "../../../panic/Panic.h"
 
 void handleGeneralProtectionFault(InterruptFrame *frame, size_t code) {
     IDTHandler::handleFault("#GP", "general protection fault", frame, code);
@@ -14,11 +15,9 @@ void handleDoubleFault(InterruptFrame *frame, size_t code) {
 
 void IDTHandler::handleFault(const char *displayCode, const char *name, InterruptFrame *frame, size_t code) {
     Display::drawString(displayCode);
-
-    IO::printf("a %s has been thrown!\ncode: %l, ip:0x%l, sp:0x%l\nhalting!\n", name, code,
-               frame->instructionPointer, frame->stackPointer);
-
-    halt();
+    Panic::invokePanic(name, "  code: %l\n  ip: 0x%l\n  cs: 0x%l\n  flags: 0x%l\n  sp: 0x%l\n  ss: 0x%l", code,
+                       frame->instructionPointer, frame->codeSegment, frame->flags, frame->stackPointer,
+                       frame->stackSegment);
 }
 
 void IDTHandler::initialize() {
