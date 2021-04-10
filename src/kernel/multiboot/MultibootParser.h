@@ -21,7 +21,7 @@ struct MultibootTagsInformation {
     uint32_t lowerMemory;
     uint64_t upperMemory;
     MultibootBootDeviceTag bootDevice;
-    MultibootMemoryMap memoryMap[];
+    MultibootMemoryMap memoryMap[10]; // FIXME: Remove this once memory management is added
 };
 
 
