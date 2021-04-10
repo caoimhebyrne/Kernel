@@ -15,6 +15,10 @@ _main64:
     mov fs, ax
     mov gs, ax
 
+    xor rbp, rbp
+    push rbp
+    mov rbp, rsp
+
     // execute our c++ code
     call kernel_main
     call halt
