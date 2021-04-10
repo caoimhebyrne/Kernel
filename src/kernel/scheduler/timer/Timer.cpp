@@ -1,6 +1,7 @@
 #include "Timer.h"
 #include "../../io/IO.h"
 #include "../../interrupt/pic/PICManager.h"
+#include "../Scheduler.h"
 
 int Timer::ticks;
 
@@ -17,6 +18,7 @@ void Timer::initialize(int freq) {
 
 void Timer::handle(InterruptFrame *frame) {
     ticks++;
+    Scheduler::executeNextTask();
     PICManager::sendEOI();
 }
 
