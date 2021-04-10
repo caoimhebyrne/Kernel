@@ -12,7 +12,17 @@ void Panic::invokePanic(const char *reason, const char *details, ...) {
     PICManager::PIC1_mask(0b11111111);
     PICManager::PIC2_mask(0b11111111);
 
-    IO::printf("kernel panic ;(\nreason:\n  %s\ndetails:\n%s\nstack: \nhalting...\n", reason, details, args);
+    IO::printf("kernel panic ;(\nreason:\n  %s\ndetails:\n  %s\nstack:\n", reason, details, args);
+
+    // print stack trace
+    struct StackFrame *frame;
+    asm volatile("mov %%rbp, %0" : "=r" (frame));
+    for (int i = 0; frame && i < 5; ++i) {
+        IO::printf("  0x%l\n", frame->eip);
+        frame = frame->ebp;
+    }
+
+    IO::printf("\nhalting...");
 
     va_end(args);
     while (true) halt();
