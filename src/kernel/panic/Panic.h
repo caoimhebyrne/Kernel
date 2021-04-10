@@ -3,10 +3,11 @@
 
 #include <stdarg.h>
 #include <stdint.h>
+#include <stddef.h>
 
 struct StackFrame {
-    struct StackFrame *ebp;
-    uint32_t eip;
+    struct StackFrame *rsp;
+    size_t rip;
 };
 
 class Panic {

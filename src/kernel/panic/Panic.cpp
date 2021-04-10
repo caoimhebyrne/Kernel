@@ -17,9 +17,9 @@ void Panic::invokePanic(const char *reason, const char *details, ...) {
     // print stack trace
     struct StackFrame *frame;
     asm volatile("mov %%rbp, %0" : "=r" (frame));
-    for (int i = 0; frame && i < 5; ++i) {
-        IO::printf("  0x%l\n", frame->eip);
-        frame = frame->ebp;
+    for (auto i = 0; frame && i < 5; ++i) {
+        IO::printf("  0x%l\n", frame->rip);
+        frame = frame->rsp;
     }
 
     IO::printf("\nhalting...");
