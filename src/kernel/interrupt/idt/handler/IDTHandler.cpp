@@ -13,9 +13,13 @@ void handleDoubleFault(InterruptFrame *frame, size_t code) {
     IDTHandler::handleFault("#DF", "double fault", frame, code);
 }
 
+void handlePageFault(InterruptFrame *frame, size_t code) {
+    IDTHandler::handleFault("#PF", "page fault", frame, code);
+}
+
 void IDTHandler::handleFault(const char *displayCode, const char *name, InterruptFrame *frame, size_t code) {
     Display::drawString(displayCode);
-    Panic::invokePanic(name, "  code: %l\n  ip: 0x%l\n  cs: 0x%l\n  flags: 0x%l\n  sp: 0x%l\n  ss: 0x%l", code,
+    Panic::invokePanic(name, "code: %l\n  ip: 0x%l\n  cs: 0x%l\n  flags: 0x%l\n  sp: 0x%l\n  ss: 0x%l", code,
                        frame->instructionPointer, frame->codeSegment, frame->flags, frame->stackPointer,
                        frame->stackSegment);
 }
@@ -24,6 +28,7 @@ void IDTHandler::initialize() {
     IDTManager idtManager;
     idtManager.registerExceptionHandler(0x8, handleDoubleFault);
     idtManager.registerExceptionHandler(0xd, handleGeneralProtectionFault);
+    idtManager.registerExceptionHandler(0xe, handlePageFault);
     idtManager.registerExceptionHandler(PIC1 + 0, Timer::handle);
 
     // load the interrupt descriptor table
