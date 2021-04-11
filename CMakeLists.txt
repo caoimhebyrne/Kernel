@@ -4,6 +4,11 @@ project(kernel NONE)
 enable_language(C CXX ASM)
 set(CMAKE_CXX_STANDARD 20)
 
+set(CMAKE_C_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_C_FLAGS_RELEASE "-DNDEBUG -O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG -O3")
+
 add_executable(kernel src/kernel/interrupt/idt/manager/IDTManager.cpp src/kernel/main.cpp src/boot/cpuid.s src/boot/paging.s src/boot/boot.s src/boot/main.s src/kernel/display/Display.cpp src/kernel/display/Display.h src/kernel/io/IO.cpp src/kernel/io/IO.h src/kernel/asm/asm.h src/kernel/scheduler/timer/Timer.cpp src/kernel/scheduler/timer/Timer.h src/kernel/interrupt/pic/PICManager.cpp src/kernel/interrupt/pic/PICManager.h src/kernel/interrupt/idt/handler/IDTHandler.cpp src/kernel/interrupt/idt/handler/IDTHandler.h src/kernel/multiboot/MultibootParser.cpp src/kernel/scheduler/task/switchTask.s src/kernel/panic/Panic.cpp src/kernel/panic/Panic.h src/kernel/memory/memory.cpp src/kernel/scheduler/Scheduler.cpp)
 
 target_compile_options(kernel PRIVATE -g -nostdlibinc -nostdlib -ffreestanding -target x86_64-unknown-gnu -mno-red-zone -Wall -Wextra -msoft-float -mno-mmx -mno-sse -mcmodel=large -fno-pie -masm=intel)
