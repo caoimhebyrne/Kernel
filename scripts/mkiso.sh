@@ -1,12 +1,5 @@
 #!/bin/bash
 
-set -e
-echo monkey...
-
-# i should change this
-cd "$(dirname "${BASH_SOURCE[0]}")/.."
-
-# remove any existing artifiacts
 rm -rf isodir
 rm -rf output
 
@@ -24,4 +17,3 @@ grub-mkrescue -o output/kernel.iso isodir
 # cleanup
 rm -rf isodir
 
-echo monkeypog...

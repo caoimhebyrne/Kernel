@@ -2,3 +2,6 @@ cmake-build-*/
 output/
 .idea/
 .run/
+.vscode/
+build/
+isodir/
